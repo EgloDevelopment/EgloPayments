@@ -1,0 +1,22 @@
+{
+  "scripts": {
+    "dev": "nodemon index.js",
+    "prod": "node index.js"
+  },
+  "dependencies": {
+    "axios": "^1.5.1",
+    "bitcoinjs-lib": "^6.1.5",
+    "bitcore-lib": "^10.0.11",
+    "body-parser": "^1.20.2",
+    "coinremitter-api": "^1.1.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.3.1",
+    "ecpair": "^2.1.0",
+    "express": "^4.18.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-routemagic": "^2.0.8",
+    "mongodb": "^6.1.0",
+    "nodemon": "^3.0.1",
+    "uuid": "^9.0.1"
+  }
+}
