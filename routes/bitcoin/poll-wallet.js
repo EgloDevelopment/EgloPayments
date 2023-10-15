@@ -4,8 +4,11 @@ const { get } = require("../../mongodb");
 
 require("dotenv").config();
 
-const { sendDiscordNotification } = require("../../functions/other/send-notification")
-const { getBalance } = require("../../functions/bitcoin/wallet");
+const axios = require("axios");
+const {
+  sendDiscordNotification,
+} = require("../../functions/other/send-notification");
+const { getBalance, deposit } = require("../../functions/bitcoin/wallet");
 
 router.get("/", async (req, res) => {
   try {
@@ -38,8 +41,32 @@ router.get("/", async (req, res) => {
         id: wallet.id,
         time: Date.now(),
         amount_btc: wallet.amount_btc,
+        wallet_address: wallet.wallet_address,
+        wallet_private_key: wallet.wallet_private_key,
       });
-      sendDiscordNotification(wallet.amount_btc)
+
+      try {
+        sendDiscordNotification(wallet.amount_btc);
+      } catch (e) {
+        console.log(e);
+        console.log("Failed to send notification to Discord");
+      }
+
+      try {
+        await axios.post(wallet.webhook_to_post_to);
+      } catch (e) {
+        console.log(e);
+        console.log("Failed to post to webhook");
+      }
+
+      try {
+        deposit(wallet.wallet_address, wallet.wallet_private_key);
+      } catch (e) {
+        console.log(e);
+        console.log(
+          "Failed to deposit, the wallets private and public key are still saved in Payments inside MongoDB"
+        );
+      }
     }
 
     res.status(200).send({

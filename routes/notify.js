@@ -3,9 +3,9 @@ const router = express.Router();
 
 require("dotenv").config();
 
-router.get("/", (req, res) => {
-  console.log(req.body)
-  res.send("EgloPayments");
+router.post("/", (req, res) => {
+  console.log(req.body);
+  res.status(200).send({ received: true });
 });
 
 module.exports = router;

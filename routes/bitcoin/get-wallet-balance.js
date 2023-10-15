@@ -31,14 +31,13 @@ router.get("/", async (req, res) => {
       });
 
     res.status(200).send({
-      id: wallet.id,
+      payment_id: wallet.id,
       confirmed_balance_btc: balance,
       confirmed_balance_usd: usd_balance,
       amount_requested_btc: wallet.amount_btc,
       amount_requested_usd: wallet.amount_usd,
       time_created: wallet.time_created,
       time_expires: wallet.time_expires,
-      status: wallet.status,
     });
   } catch (e) {
     console.log(e);

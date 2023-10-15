@@ -11,7 +11,7 @@ const { createLegacyWallet } = require("../../functions/bitcoin/wallet");
 
 router.post("/", async (req, res) => {
   try {
-    let wallet_data = createLegacyWallet(testnet);
+    let wallet_data = createLegacyWallet(mainnet);
 
     let payment_id = uuidv4();
 
@@ -34,9 +34,9 @@ router.post("/", async (req, res) => {
         amount_btc: amount_btc,
         wallet_address: wallet_data.address,
         wallet_private_key: wallet_data.privateKey,
-        status: "pending",
         time_created: Date.now(),
-        time_expires: Date.now() + 60 * 60 * 1000, // 60 mins
+        time_expires: Date.now() + parseInt(process.env.MINUTES_UNTIL_PAYMENT_EXPIRES) * 60 * 1000, // 60 mins
+        webhook_to_post_to: req.body.webhook_to_post_to,
       });
 
     res.status(200).send({
@@ -48,7 +48,7 @@ router.post("/", async (req, res) => {
   } catch (e) {
     console.log(e);
     res.status(500).send({
-      error: "Wallet not found",
+      error: "Internal server error",
     });
   }
 });
