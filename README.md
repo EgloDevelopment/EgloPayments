@@ -17,7 +17,7 @@ Simple and easy to use cryptocurrency payment system
 # How to use
 ### Requirements
 
->Node.js
+>Node.js (16 or greater)
 
 >NPM
 
@@ -103,14 +103,12 @@ This route returns this body:
 ```
 
 # Notes
-ONLY USE THE Poll wallet ROUTE TO CHECK IF THE CUSTOMER HAS PAID, NOT THE Get wallet balance ROUTE OR ELSE WITHDRAWS AND TIME EXPIRY WILL NOT WORK
+ONLY USE THE **Poll wallet** ROUTE TO CHECK IF THE CUSTOMER HAS PAID, NOT THE **Get wallet balance** ROUTE OR ELSE WITHDRAWS AND TIME EXPIRY WILL NOT WORK.
 
 This has yet to be used in a production enviroment lol, but I have tested it with fake Bitcoin and real Bitcoin and it worked flawlessly.
 
 The provider for the wallet data (blockcypher.com) is not too friendly about API requests and you can make only 100 per hour, (basically 100 wallet polls and wallet balance checks every hour).
 
-For the Bitcoin to show up in the wallet it needs to have over 3 confirmations in the Blockchain, which can take up to 30 minutes sometimes (really depends on your fee amount and how much you sent and which nodes and stuff), so I would recommend just checking every 5-10 minutes, or making the customer click a button to check, (with a cooldown so blockcypher.com doesn't get mad).
+For the Bitcoin to show up in the wallet, it needs to have over 3 confirmations in the Blockchain, which can take up to 30 minutes sometimes (really depends on your fee amount and how much you sent and which nodes and stuff), so I would recommend just checking every 5-10 minutes, or making the customer click a button to check, (with a cooldown so blockcypher.com doesn't get mad).
 
-THIS IS NOT MEANT TO BE EXPOSED TO THE PUBLIC, RUN THIS BEHIND A FIREWALL OR PROXY AND ONLY USE IT ON YOUR BACKEND SERVER, AND IF YOU NEED TO, PROXY THE POLL REQUESTS THROUGH THE BACKEND SERVER
-
-
+THIS IS NOT MEANT TO BE EXPOSED TO THE PUBLIC, RUN THIS BEHIND A FIREWALL OR PROXY AND ONLY USE IT ON YOUR BACKEND SERVER, AND IF YOU NEED TO, PROXY THE POLL REQUESTS THROUGH THE BACKEND SERVER.
