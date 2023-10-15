@@ -30,19 +30,19 @@ router.get("/", async (req, res) => {
       await client.db("EgloPayments").collection("Transactions").deleteOne({
         wallet_address: req.query.wallet,
       });
-    }
-
-    if (balance >= wallet.amount_btc) {
+    } else if (balance >= wallet.amount_btc) {
       response = "completed";
-      await client.db("EgloPayments").collection("Transactions").deleteOne({
-        wallet_address: req.query.wallet,
-      });
+
       await client.db("EgloPayments").collection("Payments").insertOne({
         id: wallet.id,
         time: Date.now(),
         amount_btc: wallet.amount_btc,
         wallet_address: wallet.wallet_address,
         wallet_private_key: wallet.wallet_private_key,
+      });
+
+      await client.db("EgloPayments").collection("Transactions").deleteOne({
+        wallet_address: req.query.wallet,
       });
 
       try {

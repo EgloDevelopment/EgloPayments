@@ -10,6 +10,7 @@ const { getBalance } = require("../../functions/bitcoin/wallet");
 router.get("/", async (req, res) => {
   try {
     let balance = await getBalance(req.query.wallet);
+    let usd_balance
 
     if (balance > 0) {
       await axios
