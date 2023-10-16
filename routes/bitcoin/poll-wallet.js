@@ -5,9 +5,6 @@ const { get } = require("../../mongodb");
 require("dotenv").config();
 
 const axios = require("axios");
-const {
-  sendDiscordNotification,
-} = require("../../functions/other/send-notification");
 const { getBalance, deposit } = require("../../functions/bitcoin/wallet");
 
 router.get("/", async (req, res) => {
@@ -44,13 +41,6 @@ router.get("/", async (req, res) => {
       await client.db("EgloPayments").collection("Transactions").deleteOne({
         wallet_address: req.query.wallet,
       });
-
-      try {
-        sendDiscordNotification(wallet.amount_btc);
-      } catch (e) {
-        console.log(e);
-        console.log("Failed to send notification to Discord");
-      }
 
       try {
         await axios.post(wallet.webhook_to_post_to);

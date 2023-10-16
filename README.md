@@ -33,7 +33,6 @@ Then copy the enviroment variables from **example.env** into **.env** in the mai
 ```
 UTXO_API = "https://api.blockcypher.com/v1/btc/main/addrs/"
 MONGODB_URL = "mongodb://your-mongodb-url"
-DISCORD_WEBHOOK_URL = "your-discord-webhook-url"
 BITCOIN_DEPOSIT_WALLET_ADDRESS = "main-bitcoin-wallet-address-to-deposit-to"
 BITCOIN_FEE = "1000"
 MINUTES_UNTIL_PAYMENT_EXPIRES = "60"
