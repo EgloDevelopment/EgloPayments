@@ -100,6 +100,8 @@ This route returns this body:
 ```
 
 # Notes
+YOU NO LONGER NEED TO USE THE **Poll wallet** ROUTE, EVERY 30 MINUTES THE SERVER FINDS TRANSACTIONS CREATED OVER 30 MINUTES AGO AND CHECKS TO SEE IF THEY ARE PAID
+
 ONLY USE THE **Poll wallet** ROUTE TO CHECK IF THE CUSTOMER HAS PAID, NOT THE **Get wallet balance** ROUTE OR ELSE WITHDRAWS AND TIME EXPIRY WILL NOT WORK.
 
 This has yet to be used in a production enviroment lol, but I have tested it with fake Bitcoin and real Bitcoin and it worked flawlessly.

@@ -1,5 +1,8 @@
 const express = require("express");
 const app = express();
+const cron = require("node-cron");
+
+const { pollWallets } = require("./functions/bitcoin/poll-wallets");
 
 require("dotenv").config();
 
@@ -24,6 +27,10 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.listen(5000, () => {
+app.listen(5001, () => {
   console.log(`EgloPayments listening on port 5000`);
+});
+
+cron.schedule("*/30 * * * *", () => {
+  pollWallets();
 });
