@@ -35,7 +35,6 @@ router.post("/", async (req, res) => {
         wallet_address: wallet_data.address,
         wallet_private_key: wallet_data.privateKey,
         time_created: Date.now(),
-        time_expires: Date.now() + parseInt(process.env.MINUTES_UNTIL_PAYMENT_EXPIRES) * 60 * 1000, // 60 mins
         webhook_to_post_to: req.body.webhook_to_post_to,
       });
 

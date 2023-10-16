@@ -35,7 +35,6 @@ UTXO_API = "https://api.blockcypher.com/v1/btc/main/addrs/"
 MONGODB_URL = "mongodb://your-mongodb-url"
 BITCOIN_DEPOSIT_WALLET_ADDRESS = "main-bitcoin-wallet-address-to-deposit-to"
 BITCOIN_FEE = "1000"
-MINUTES_UNTIL_PAYMENT_EXPIRES = "60"
 ```
 
 Then run **npm install** in the main directory of EgloPayments
@@ -79,8 +78,7 @@ This route returns this body:
   "confirmed_balance_usd": (float, Confirmed USD value of wallet),
   "amount_requested_btc": (float, Bitcoin amount of how much Bitcoin the wallet is expecting),
   "amount_requested_usd": (float/integer, USD amount of how much bitcoin the wallet is expecting),
-  "time_created": (integer, Time in UNIX when the payment was created),
-  "time_expires": (integer, Time in Unix when the payment expires)
+  "time_created": (integer, Time in UNIX when the payment was created)
 }
 ```
 
@@ -95,7 +93,7 @@ Request body to be sent:
 This route returns this body:
 ```
 {
-  "response": (string, States wether the payment is pending, expired, or completed),
+  "response": (string, States wether the payment is pending, or completed),
   "current_amount": (float/integer, States how much Bitcoin is currently in the wallet),
   "btc_needed": (float/integern Returns how much more Bitcoin is needed to complete the transaction)
 }

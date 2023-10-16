@@ -37,8 +37,7 @@ router.get("/", async (req, res) => {
       confirmed_balance_usd: usd_balance,
       amount_requested_btc: wallet.amount_btc,
       amount_requested_usd: wallet.amount_usd,
-      time_created: wallet.time_created,
-      time_expires: wallet.time_expires,
+      time_created: wallet.time_created
     });
   } catch (e) {
     console.log(e);

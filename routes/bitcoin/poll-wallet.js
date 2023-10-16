@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
   try {
     let balance = await getBalance(req.query.wallet);
 
-    let response = "pending";
+    let response
 
     const client = get();
 
@@ -22,12 +22,7 @@ router.get("/", async (req, res) => {
         wallet_address: req.query.wallet,
       });
 
-    if (wallet.time_expires < Date.now()) {
-      response = "expired";
-      await client.db("EgloPayments").collection("Transactions").deleteOne({
-        wallet_address: req.query.wallet,
-      });
-    } else if (balance >= wallet.amount_btc) {
+    if (balance >= wallet.amount_btc) {
       response = "completed";
 
       await client.db("EgloPayments").collection("Payments").insertOne({
@@ -57,6 +52,8 @@ router.get("/", async (req, res) => {
           "Failed to deposit, the wallets private and public key are still saved in Payments inside MongoDB"
         );
       }
+    } else {
+      response = "pending"
     }
 
     res.status(200).send({
