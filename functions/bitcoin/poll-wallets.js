@@ -17,19 +17,24 @@ async function pollWallets() {
   for (const wallet of wallets) {
     try {
       if (wallet.time_created + 30 * 60 * 1000 < Date.now()) {
+
         console.log(
           `Wallet ${wallet.wallet_address} was created over 30 minutes ago`
         );
+
         let wallet_balance = await getBalance(wallet.wallet_address);
 
         console.log(`Wallet ${wallet.wallet_address} has ${wallet_balance}BTC`);
 
         if (wallet_balance >= wallet.amount_btc) {
+          
           console.log(`Wallet ${wallet.wallet_address} has been paid`);
+
           await client.db("EgloPayments").collection("Payments").insertOne({
             id: wallet.id,
             time: Date.now(),
             amount_btc: wallet.amount_btc,
+            amount_paid_btc: wallet_balance,
             wallet_address: wallet.wallet_address,
             wallet_private_key: wallet.wallet_private_key,
           });

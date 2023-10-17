@@ -9,7 +9,7 @@ const { getBalance, deposit } = require("../../functions/bitcoin/wallet");
 
 router.get("/", async (req, res) => {
   try {
-    let balance = await getBalance(req.query.wallet);
+    let wallet_balance = await getBalance(req.query.wallet);
 
     let response
 
@@ -22,13 +22,14 @@ router.get("/", async (req, res) => {
         wallet_address: req.query.wallet,
       });
 
-    if (balance >= wallet.amount_btc) {
+    if (wallet_balance >= wallet.amount_btc) {
       response = "completed";
 
       await client.db("EgloPayments").collection("Payments").insertOne({
         id: wallet.id,
         time: Date.now(),
         amount_btc: wallet.amount_btc,
+        amount_paid_btc: wallet_balance,
         wallet_address: wallet.wallet_address,
         wallet_private_key: wallet.wallet_private_key,
       });
@@ -58,8 +59,8 @@ router.get("/", async (req, res) => {
 
     res.status(200).send({
       response: response,
-      current_amount: balance,
-      btc_needed: wallet.amount_btc - balance,
+      current_amount: wallet_balance,
+      btc_needed: wallet.amount_btc - wallet_balance,
     });
   } catch (e) {
     console.log(e);
